@@ -229,3 +229,39 @@ export async function getUser(email: string) {
     throw new Error('Failed to fetch user.');
   }
 }
+
+export async function fetchAllEnvoices(){
+  try {
+    return (await (sql`SELECT * FROM INVOICES`)).rowCount
+  } catch (error) {
+    console.error('Failed to fetch INVOICES:', error);
+    throw new Error('Failed to fetch INVOICES.');
+  }
+}
+
+export async function fetchAllEnvoicesPending(){
+  try {
+    return (await (sql`SELECT * FROM INVOICES WHERE STATUS='pending'`)).rowCount
+  } catch (error) {
+    console.error('Failed to fetch INVOICES:', error);
+    throw new Error('Failed to fetch INVOICES.');
+  }
+}
+
+export async function fetchAllEnvoicesPaid(){
+  try {
+    return (await (sql`SELECT * FROM INVOICES WHERE STATUS='paid'`)).rowCount
+  } catch (error) {
+    console.error('Failed to fetch INVOICES:', error);
+    throw new Error('Failed to fetch INVOICES.');
+  }
+}
+
+export async function fetchAllCustomers(){
+  try {
+    return (await (sql`SELECT * FROM CUSTOMERS`)).rowCount
+  } catch (error) {
+    console.error('Failed to fetch INVOICES:', error);
+    throw new Error('Failed to fetch INVOICES.');
+  }
+}
