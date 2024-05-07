@@ -12,17 +12,9 @@ import { formatCurrency } from './utils';
 import { unstable_noStore as noStore } from 'next/cache';
 
 export async function fetchRevenue() {
-  // Add noStore() here to prevent the response from being cached.
-  // This is equivalent to in fetch(..., {cache: 'no-store'}).
   noStore();
 
   try {
-    // Artificially delay a response for demo purposes.
-    // Don't do this in production :)
-
-    // console.log('Fetching revenue data...');
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-
     const data = await sql<Revenue>`SELECT * FROM revenue`;
 
     console.log('Data fetch completed after 3 seconds.');
@@ -44,9 +36,6 @@ export async function fetchLatestInvoices() {
       ORDER BY invoices.date DESC
       LIMIT 5`;
 
-      // console.log('Fetching revenue data...');
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-
     const latestInvoices = data.rows.map((invoice) => ({
       ...invoice,
       amount: formatCurrency(invoice.amount),
@@ -61,9 +50,6 @@ export async function fetchLatestInvoices() {
 export async function fetchCardData() {
   noStore();
   try {
-    // You can probably combine these into a single SQL query
-    // However, we are intentionally splitting them to demonstrate
-    // how to initialize multiple queries in parallel with JS.
     const invoiceCountPromise = sql`SELECT COUNT(*) FROM invoices`;
     const customerCountPromise = sql`SELECT COUNT(*) FROM customers`;
     const invoiceStatusPromise = sql`SELECT
@@ -241,7 +227,7 @@ export async function getUser(email: string) {
   }
 }
 
-export async function fetchAllEnvoices(){
+export async function fetchAllEnvoices() {
   noStore();
   try {
     return (await (sql`SELECT * FROM INVOICES`)).rowCount
@@ -251,7 +237,7 @@ export async function fetchAllEnvoices(){
   }
 }
 
-export async function fetchAllEnvoicesPending(){
+export async function fetchAllEnvoicesPending() {
   noStore();
   try {
     return (await (sql`SELECT * FROM INVOICES WHERE STATUS='pending'`)).rowCount
@@ -261,7 +247,7 @@ export async function fetchAllEnvoicesPending(){
   }
 }
 
-export async function fetchAllEnvoicesPaid(){
+export async function fetchAllEnvoicesPaid() {
   noStore();
   try {
     return (await (sql`SELECT * FROM INVOICES WHERE STATUS='paid'`)).rowCount
@@ -271,7 +257,7 @@ export async function fetchAllEnvoicesPaid(){
   }
 }
 
-export async function fetchAllCustomers(){
+export async function fetchAllCustomers() {
   noStore();
   try {
     return (await (sql`SELECT * FROM CUSTOMERS`)).rowCount
