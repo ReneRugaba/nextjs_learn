@@ -1,5 +1,15 @@
 import { inter } from '@/app/ui/fonts';
 import '@/app/ui/global.css';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: {
+    template: '%s | Acme Dashboard',
+    default: 'Acme Dashboard',
+  },
+  description: 'Project I have use to understand nextjs',
+  metadataBase: new URL('https://nextjs-learn-kappa-seven.vercel.app'),
+};
 
 export default function RootLayout({
   children,
